@@ -58,6 +58,28 @@ app.get('/departures/accomodations', async (req, res) => {
     }
 });
 
+app.get('/departures/accomodations/seats', async (req, res) => {
+    try {
+        const route = req.query.route;
+        const time = req.query.time;
+        const adults = req.query.adults;
+        const children = req.query.children;
+        const babies = req.query.babies;
+        const seat = req.query.accommodation;
+        const apiUrl = `https://tadpole.clickferry.app/price?route=${route}&time=${time}&adults=${adults}&children=${children}&babies=${babies}&accommodation=${seat}`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const responseData = await response.json(); // Parsea la respuesta como JSON
+        res.header('Access-Control-Allow-Origin', '*'); // Establece el encabezado CORS
+        res.json(responseData); // Envia los datos JSON al cliente
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 app.listen(PORT, () => {

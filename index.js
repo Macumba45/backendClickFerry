@@ -89,7 +89,6 @@ app.get('/departures/accomodations', function (req, res) { return __awaiter(_thi
                 children = req.query.children;
                 babies = req.query.babies;
                 apiUrl = "https://tadpole.clickferry.app/accommodations?route=".concat(route, "&time=").concat(time, "&adults=").concat(adults, "&children=").concat(children, "&babies=").concat(babies);
-                console.log(apiUrl);
                 return [4 /*yield*/, fetch(apiUrl)];
             case 1:
                 response = _a.sent();
@@ -105,6 +104,41 @@ app.get('/departures/accomodations', function (req, res) { return __awaiter(_thi
             case 3:
                 error_2 = _a.sent();
                 console.error(error_2);
+                res.status(500).send('Internal Server Error');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
+app.get('/departures/accomodations/seats', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var route, time, adults, children, babies, seat, apiUrl, response, responseData, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 3, , 4]);
+                route = req.query.route;
+                time = req.query.time;
+                adults = req.query.adults;
+                children = req.query.children;
+                babies = req.query.babies;
+                seat = req.query.seat;
+                apiUrl = "https://tadpole.clickferry.app/accommodations?route=".concat(route, "&time=").concat(time, "&adults=").concat(adults, "&children=").concat(children, "&babies=").concat(babies, "&accommodation=").concat(seat);
+                return [4 /*yield*/, fetch(apiUrl)];
+            case 1:
+                response = _a.sent();
+                if (!response.ok) {
+                    throw new Error("HTTP error! Status: ".concat(response.status));
+                }
+                console.log(seat);
+                return [4 /*yield*/, response.json()];
+            case 2:
+                responseData = _a.sent();
+                res.header('Access-Control-Allow-Origin', '*'); // Establece el encabezado CORS
+                res.json(responseData); // Envia los datos JSON al cliente
+                return [3 /*break*/, 4];
+            case 3:
+                error_3 = _a.sent();
+                console.error(error_3);
                 res.status(500).send('Internal Server Error');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
