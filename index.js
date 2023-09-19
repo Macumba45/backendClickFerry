@@ -121,15 +121,14 @@ app.get('/departures/accomodations/seats', function (req, res) { return __awaite
                 adults = req.query.adults;
                 children = req.query.children;
                 babies = req.query.babies;
-                seat = req.query.seat;
-                apiUrl = "https://tadpole.clickferry.app/accommodations?route=".concat(route, "&time=").concat(time, "&adults=").concat(adults, "&children=").concat(children, "&babies=").concat(babies, "&accommodation=").concat(seat);
+                seat = req.query.accommodation;
+                apiUrl = "https://tadpole.clickferry.app/price?route=".concat(route, "&time=").concat(time, "&adults=").concat(adults, "&children=").concat(children, "&babies=").concat(babies, "&accommodation=").concat(seat);
                 return [4 /*yield*/, fetch(apiUrl)];
             case 1:
                 response = _a.sent();
                 if (!response.ok) {
                     throw new Error("HTTP error! Status: ".concat(response.status));
                 }
-                console.log(seat);
                 return [4 /*yield*/, response.json()];
             case 2:
                 responseData = _a.sent();
